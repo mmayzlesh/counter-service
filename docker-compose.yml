@@ -1,0 +1,40 @@
+version: '3' 
+
+# Define the services that will be managed by Docker Compose
+services:  
+
+  redis:
+    image: redis:7.2.1  
+    volumes:
+      - ./redis/redis.conf:/usr/local/etc/redis/redis.conf  # Mount the local 'redis.conf' file to the configuration file location in the container
+      - redis-data:/data  # Mount a named volume for Redis data
+    command: redis-server /usr/local/etc/redis/redis.conf  # Start the Redis server with the custom configuration file
+    networks:
+      - counter-network # Use the network defined below
+
+  nginx:
+    image: nginx:1.25.2 
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf  # Mount the local 'nginx.conf' file to the configuration file location in the container
+    ports:
+      - "80:80"
+    depends_on:
+      - counter-service
+    networks:
+      - counter-network # Use the network defined below
+
+  counter-service:
+    image: ghcr.io/mmayzlesh/counter-service:latest  # Uss the latest image by default. Specific tag can be set to use previous versions
+    expose:
+      - "8080"
+    depends_on:
+      - redis
+    networks:
+      - counter-network # Use the network defined below
+
+networks:  # Define network to be created and used by all the services
+  counter-network:
+    driver: bridge  # Use the default bridge network driver
+
+volumes: # Define named volumes
+  redis-data:  # Named volume for storing Redis data
