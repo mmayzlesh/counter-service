@@ -10,9 +10,9 @@ This repository contains the source code and configuration files for a Counter S
 
 ## Repository Structure
 ```
-├────── .github - Github actions folder
-├────── nginx - Nginx configuration folder
-├────── redis - Redis configuration folder
+├────── .github/ - Github actions folder
+├────── nginx/ - Nginx configuration folder
+├────── redis/ - Redis configuration folder
 ├── Dockerfile - Dockerfile for counter-service
 ├── counter_service.py - Main counter-service functionality
 ├── requirements.txt - counter-service dependencies, restored at build time
@@ -86,6 +86,6 @@ If you need to revert to a previous version of the service due to any issue with
 
 5. Navigate to the directory containing the docker-compose.yml file and run:
    ```yaml
-   docker-compose up -d
+   docker compose up -d
    ```
    This command will stop the running service and start it again with the specified image version, thus rolling back to the older, desired version of the service.
