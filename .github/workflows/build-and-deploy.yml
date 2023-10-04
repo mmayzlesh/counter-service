@@ -97,7 +97,5 @@ jobs:
         envs: DIRECTORY
         script: |
           cd ~/$DIRECTORY
-          cp ./nginx/nginx.conf /etc/nginx/nginx.conf
-          cp ./redis/redis.conf /usr/local/etc/redis/redis.conf
           docker compose pull
           docker compose up -d

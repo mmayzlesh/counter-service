@@ -34,8 +34,7 @@ Each push to the ```main``` branch will automatically trigger a GitHub Actions p
 2. Builds the counter-service Docker image based on the Dockerfile.
 3. Pushes the created Docker image to the GitHub Container Registry, tagged with the branch name and GitHub Actions run number, in addition to a latest tag.
 4. Copies the relevant files to the destination VM.
-5. Sets Nginx and Redis configuration files in defined bind mounts on the destination VM.
-6. Pulls and starts all the services using docker-compose.
+5. Pulls and starts all the services using docker-compose.
 
 Each push to a non-```main``` branch will automatically trigger a GitHub Actions pipeline, which does the following:
 
@@ -54,15 +53,7 @@ To deploy the service manually, follow the steps below:
    cd [Repository Name]
    ```
 
-**2. Copy configuration files:**
-
-Within the application directory, copy configuration files to defined bind mounts:
-```
-cp ./nginx/nginx.conf /etc/nginx/nginx.conf
-cp ./redis/redis.conf /usr/local/etc/redis/redis.conf
-```
-
-**3. Pull latest image and start services** 
+**2. Pull latest image and start services** 
 ```
 docker compose pull
 docker compose up -d
